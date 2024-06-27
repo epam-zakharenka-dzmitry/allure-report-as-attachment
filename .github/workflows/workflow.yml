@@ -34,11 +34,11 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: 11
-      - name: Install Allure
+      - name: Download Allure
         run: |
-          sudo apt-add-repository 'deb http://dl.bintray.com/qameta/debian all main'
-          sudo apt-get update -y
-          sudo apt-get install allure -y
+          wget -O allure-2.29.0.tgz -q https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.tgz
+          tar -zxvf allure-2.29.0.tgz -C /opt/
+          echo "PATH=$PATH:/opt/allure-2.29.0/bin" >> $GITHUB_ENV
       - name: Run automation tests
         run: mvn test
       - name: Generate Allure report
